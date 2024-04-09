@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ServerContainer.Models.FileModel>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+           
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Reference)
+        </th>
+
+       
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Reference)
+            </td>
+
+
+         
+            <td>
+                @if (item.Status != "Запущено")
+                    {
+                      
+                    @Html.ActionLink("Запустить", "RunDB", new { name = item.Name })
+                            }
+                        
+                        else
+                        {
+                            @Html.ActionLink("Остановить", "StopDB", new { Name = item.Name })
+                        }
+
+            </td>
+        </tr>
+    }
+
+</table>
+

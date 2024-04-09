@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/online.css' %}">
+    <title>Регистрация</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="nav_panel">
+                <nav role="navigation">
+                    <div id="menuToggle">
+                        <input type="checkbox" />
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <ul id="menu">
+                            <a href="/index" target="_blank">
+                                <li>ГЛАВНАЯ СТРАНИЦА</li>
+                            </a>
+                            <a href="/about" target="_blank">
+                                <li>О НАС</li>
+                            </a>
+                            <a href="/kontakt" target="_blank">
+                                <li>СВЯЗАТЬСЯ С НАМИ</li>
+                            </a>
+                            <a href="/" target="_blank">
+                                <li>ОНЛАЙН ТАБЛО</li>
+                            </a>
+                            <a href="/market" target="_blank">
+                                <li>МАГАЗИНЫ</li>
+                            </a>
+                            <a href="/kafe" target="_blank">
+                                <li>КАФЕ И РЕСТОРАНЫ</li>
+                            </a>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="forms">
+
+                <a href="/index" class="header_logo">
+                    <img class="header_logo_img" src="{% static 'main/photo/Airplane_thumbnail 1.png' %}" alt="Логотип">
+                </a>
+                <div class="reg">
+                    {% url 'register' as url_register %}
+                    <a href="{{url_register}}" class="text_reg">Регистрация</a>
+                </div>
+                <div class="login">
+                    {% url 'login' as url_login %}
+                    <a href="{{url_login}}" class="text_reg">Авторизация</a>
+                </div>
+
+                <a href="#" class="text_reg text_reg_1">{{request.user}}</a>
+            </div>
+        </div>
+
+        <div class="first_section_1">
+            <form class="forms_login" id="add_form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_username">Имя пользователя:</label>
+                    <input type="text" class="form-control" id="id_username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Пароль:</label>
+                    <input type="password" class="form-control" id="id_password" name="password" required>
+                </div>
+                <button form="add_form" type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="footer">
+            <div class="img_footer">
+            </div>
+            <ul class="footer_li">
+                <li><a href="/about" title="О нас" class="footer_li_a">О НАС</a></li>
+                <li><a href="/kontakt" class="footer_li_a">СВЯЗАТЬСЯ С НАМИ</a></li>
+                <li><a href="/" class="footer_li_a">ОНЛАЙН ТАБЛО</a></li>
+                <li><a href="/market" class="footer_li_a">МАГАЗИНЫ</a></li>
+                <li><a href="/kafe" class="footer_li_a last">КАФЕ И РЕСТОРАНЫ</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

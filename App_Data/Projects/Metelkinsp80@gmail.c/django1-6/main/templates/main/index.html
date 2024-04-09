@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <title>Аэропорт</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="nav_panel">
+                <nav role="navigation">
+                    <div id="menuToggle">
+                        <input type="checkbox" />
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <ul id="menu">
+                            <a href="onas.html" target="_blank">
+                                <li>О НАС</li>
+                            </a>
+                            <a href="kontakt.html" target="_blank">
+                                <li>СВЯЗАТЬСЯ С НАМИ</li>
+                            </a>
+                            <a href="online.html" target="_blank">
+                                <li>ОНЛАЙН ТАБЛО</li>
+                            </a>
+                            <a href="mgazin.html" target="_blank">
+                                <li>МАГАЗИНЫ</li>
+                            </a>
+                            <a href="kafe.html" target="_blank">
+                                <li>КАФЕ И РЕСТОРАНЫ</li>
+                            </a>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="header_text__hight">
+                <div class="logo__hight">
+                </div>
+            </div>
+            <div class="header_text__low">
+                <h1 class="header_text__low_1">САМЫЕ ЛУЧШИЕ ПОЛЕТЫ, <br> ТОЛЬКО С НАМИ!</h1>
+
+                <a href="online.html">
+                    <button class="header_btn">
+                        <p class="text_btn">Онлайн Табло</p>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="second_section">
+            <h2 class="h2_margin">Услуги для пассажиров</h2>
+            <div class="cards">
+                <a href="kafe.html" class="card_1">
+                    <button class="header_btn second_btn">
+                        <p class="second_text_btn">Кафе и ретсораны</p>
+                    </button>
+                </a>
+                <a href="mgazin.html" class="card_2">
+                    <button class="header_btn second_btn">
+                        <p class="second_text_btn">Магазины</p>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="third_section">
+            <div class="third_card">
+                <div class="third_card_1 third_card_back">
+                    <div class="third_card_img third_card_img_1">
+                    </div>
+                    <h3 class="third_card_h">Пассажиры с детьми</h3>
+                    <p class="third_card_p">Детский зал ожидания <br> — это место
+                        для кратковременного предполетного отдыха
+                        пассажиров с детьми до 7-ми лет.</p>
+                </div>
+                <div class="third_card_2 third_card_back">
+                    <div class="third_card_img third_card_img_2">
+                    </div>
+                    <h3 class="third_card_h">Пассажирам с <br> домашними животными</h3>
+                    <p class="third_card_p">Перевозка животных осуществляется:по предварительному
+                        согласованию с авиакомпанией;</p>
+                </div>
+                <div class="third_card_3 third_card_back">
+                    <div class="third_card_img third_card_img_3">
+                    </div>
+                    <h3 class="third_card_h">Провоз багажа и <br> ручной клади</h3>
+                    <p class="third_card_p">У входов в терминалы аэропорта всем пассажирам
+                        и посетителям <br> необходимо пройти входной контроль.</p>
+                </div>
+                <div class="third_card_4 third_card_back">
+                    <div class="third_card_img third_card_img_4">
+                    </div>
+                    <h3 class="third_card_h">Трансферным и <br> транзитным пассажирам</h3>
+                    <p class="third_card_p">Трансферная перевозка <br> — перевозка пассажира <br>
+                        и его багажа из аэропорта в
+                        аэропорт назначения рейсами одной или двумя авиакомпаниями.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="four_section">
+            <h2 class="four_text">Карта Аэропорта</h2>
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slide"><img src="{% static 'main/photo/10.png' %}" alt="" class="img_slider"></div>
+                    <div class="slide"><img src="{% static 'main/photo/11.png' %}" alt="" class="img_slider"></div>
+                    <div class="slide"><img src="{% static 'main/photo/12.png' %}" alt="" class="img_slider"></div>
+                </div>
+                <button class="slider-button prev-button">&#8249;</button>
+                <button class="slider-button next-button">&#8250;</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="img_footer">
+            </div>
+            <ul class="footer_li">
+                <li><a href="/" title="О нас" class="footer_li_a">О НАС</a></li>
+                <li><a href="/" class="footer_li_a">СВЯЗАТЬСЯ С НАМИ</a></li>
+                <li><a href="/online" class="footer_li_a">ОНЛАЙН ТАБЛО</a></li>
+                <li><a href="/" class="footer_li_a">МАГАЗИНЫ</a></li>
+                <li><a href="/" class="footer_li_a last">КАФЕ И РЕСТОРАНЫ</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>

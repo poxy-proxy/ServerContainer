@@ -1,0 +1,102 @@
+﻿@model IEnumerable<ServerContainer.Models.FileModel>
+
+<h3>Загрузите zip-архив с файлами проекта</h3>
+@using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="upload" />
+    <br>
+    <input type="submit" value="Загрузить" />
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Reference)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>Платформа</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Reference)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DropDownList("SubjectList", ViewBag.SubjectList as SelectList, new { @class = "form-control", @id = "SubjectList" })
+            </td>
+            <td>
+                @if (item.Status != "Запущено")
+                {
+
+
+                    <a id="RunMySite" href="#" onclick="RunMySite()">Запустить</a>
+                    @*@Html.ActionLink("Запустить", "RunMySite", new { name = item.Name, subject = })*@
+                }
+
+                else
+                {
+                    <a id="StopMySite" href="#" onclick="StopMySite()">Остановить</a>
+                    @*@Html.ActionLink("Остановить", "StopMySite", new { Name = item.Name })*@
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>
+@Scripts.Render("~/scripts/jquery-3.4.1.js")
+
+@if (Model.Count() > 0)
+{
+<script>
+
+    function RunMySite() {
+        console.log('ojrwi')
+        fetch('@Url.Action("RunMySite", "Home")' +'?name=' +'@Model.First().Name' +'&subject=' + document.getElementById("SubjectList").value).then(function (response) {
+            location.reload()
+        }).then(function (data) {
+            console.log(data);
+        }).catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        });
+    }
+
+    function StopMySite() {
+        console.log('jjjjj')
+     fetch('@Url.Action("StopMySite", "Home")' +'?name=' +'@Model.First().Name' +'&subject=' + document.getElementById("SubjectList").value).then(function (response) {
+    location.reload()
+}).then(function (data) {
+         console.log(data);
+     }).catch(function (err) {
+         console.log('Fetch Error :-S', err);
+     });
+ }
+</script>
+}
