@@ -1,0 +1,116 @@
+﻿@using ServerContainer.Models
+@model IEnumerable<AspNetUsers>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            Логин
+        </th>
+
+        <th>
+            Роли
+        </th>
+
+        <th>
+            Роль админа добавлена
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+
+            <td>
+                @foreach (var role in item.AspNetRoles)
+                {
+                    <div>@role.Name </div>;
+                }
+
+            </td>
+
+            <td>
+                @if (item.AspNetRoles.Where(ii => ii.Name == "admin").Count() > 0)
+                {
+
+
+                    <input type="checkbox" checked onclick="CheckAdmin('@item.UserName',false)" />
+                }
+                else
+                {
+                    <input type="checkbox" onclick="CheckAdmin('@item.UserName',true)" />
+                }
+
+            </td>
+
+            <td>
+
+
+                <input type="button" checked onclick="DeleteUser('@item.UserName')" value="Удалить" />
+
+
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+
+
+
+
+
+<script>
+        function CheckAdmin(login, isAdmin) {
+              // Отправляем AJAX запрос на сервер
+            $.ajax({
+                url: '@Url.Action("CheckAdmin", "Manage")' + '?login=' + login + '&isAdmin=' + isAdmin,
+            method: "GET", // или "GET", в зависимости от вашего сервера
+            data: {/* Данные, если нужны */ },
+            success: function (response) {
+                // Обработка успешного ответа от сервера
+                // Здесь вы можете перезагрузить страницу
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                // Обработка ошибок
+                console.error(error);
+            },
+            complete: function () {
+                // Скрываем индикатор загрузки после завершения запроса
+                $("#loader").hide();
+            }
+        });
+    }
+
+     function DeleteUser(login) {
+       // Отправляем AJAX запрос на сервер
+     $.ajax({
+         url: '@Url.Action("DeleteUser", "Manage")' + '?login=' + login ,
+     method: "GET", // или "GET", в зависимости от вашего сервера
+     data: {/* Данные, если нужны */ },
+     success: function (response) {
+         // Обработка успешного ответа от сервера
+         // Здесь вы можете перезагрузить страницу
+         location.reload();
+     },
+     error: function (xhr, status, error) {
+         // Обработка ошибок
+         console.error(error);
+     },
+     complete: function () {
+         // Скрываем индикатор загрузки после завершения запроса
+         $("#loader").hide();
+     }
+ });
+ }
+
+</script>
+
+

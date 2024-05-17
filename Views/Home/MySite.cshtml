@@ -1,12 +1,15 @@
 ﻿@model IEnumerable<ServerContainer.Models.FileModel>
 
+
 <h3>Загрузите zip-архив с файлами проекта</h3>
+<h4>В приложении NodeJS установить порт 3000</h4>
 @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input type="file" name="upload" />
     <br>
     <input type="submit" value="Загрузить" />
 }
+
 
 <table class="table">
     <tr>
@@ -41,7 +44,9 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Reference)
+                <a target="_blank" href="@Html.DisplayFor(modelItem => item.Reference)">@Html.DisplayFor(modelItem => item.Reference)</a>
+
+
             </td>
 
 
@@ -71,25 +76,54 @@
     }
 
 </table>
+
+<button id="loadFileBtn">Загрузить логи сайта</button>
+<div id="loader"></div> <!-- Индикатор загрузки -->
+<div id="fileContent"></div>
+
 @Scripts.Render("~/scripts/jquery-3.4.1.js")
 
 @if (Model.Count() > 0)
 {
-<script>
+    <script>
 
     function RunMySite() {
-        console.log('ojrwi')
+        @*// Показываем индикатор загрузки
+        $("#loader").show();
         fetch('@Url.Action("RunMySite", "Home")' +'?name=' +'@Model.First().Name' +'&subject=' + document.getElementById("SubjectList").value).then(function (response) {
             location.reload()
         }).then(function (data) {
-            console.log(data);
+           /* console.log(data);*/
         }).catch(function (err) {
             console.log('Fetch Error :-S', err);
+        });*@
+
+        // Показываем индикатор загрузки
+        $("#loader").show();
+
+        // Отправляем AJAX запрос на сервер
+        $.ajax({
+            url: '@Url.Action("RunMySite", "Home")' +'?name=' +'@Model.First().Name' +'&subject=' + document.getElementById("SubjectList").value,
+            method: "GET", // или "GET", в зависимости от вашего сервера
+            data: {/* Данные, если нужны */ },
+            success: function (response) {
+                // Обработка успешного ответа от сервера
+                // Здесь вы можете перезагрузить страницу
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                // Обработка ошибок
+                console.error(error);
+            },
+            complete: function () {
+                // Скрываем индикатор загрузки после завершения запроса
+                $("#loader").hide();
+            }
         });
     }
 
     function StopMySite() {
-        console.log('jjjjj')
+
      fetch('@Url.Action("StopMySite", "Home")' +'?name=' +'@Model.First().Name' +'&subject=' + document.getElementById("SubjectList").value).then(function (response) {
     location.reload()
 }).then(function (data) {
@@ -97,6 +131,31 @@
      }).catch(function (err) {
          console.log('Fetch Error :-S', err);
      });
- }
-</script>
+        }
+
+
+        document.getElementById('loadFileBtn').addEventListener('click', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '@Url.Action("LogSite", "Home")' +'?name=' +'@Model.First().Name', true);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var fileLines = xhr.responseText.split('\n'); // Разбиваем текст на строки по символу переноса строки
+                    var contentDiv = document.getElementById('fileContent');
+                    contentDiv.innerHTML = ''; // Очищаем содержимое элемента перед отображением нового файла
+
+                    fileLines.forEach(function (line) {
+                        var lineDiv = document.createElement('div');
+                        lineDiv.textContent = line;
+                        contentDiv.appendChild(lineDiv);
+                    });
+                } else {
+                    console.log('Ошибка загрузки файла: ' + xhr.status);
+                }
+            };
+
+            xhr.send();
+        });
+
+    </script>
 }

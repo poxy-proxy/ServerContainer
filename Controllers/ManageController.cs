@@ -15,10 +15,13 @@ namespace ServerContainer.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        Entities db = new Entities();
 
         public ManageController()
         {
         }
+
+
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -37,6 +40,33 @@ namespace ServerContainer.Controllers
                 _signInManager = value; 
             }
         }
+
+        public ActionResult ListUsers()
+        {
+            //var users = UserManager.Users;
+            var users = db.AspNetUsers;
+            return View(users);
+        }
+
+        public ActionResult DeleteUser(string login)
+        {
+            UserManager.Delete(UserManager.FindByName(login));
+            return RedirectToAction("ListUsers", "Manage");
+        }
+
+        public ActionResult CheckAdmin(string login, bool isAdmin)
+        {
+            if (isAdmin)
+            {
+                UserManager.AddToRole(db.AspNetUsers.FirstOrDefault(u => u.UserName == login).Id, "admin");
+            }
+            else
+            {
+                UserManager.RemoveFromRole(db.AspNetUsers.FirstOrDefault(u => u.UserName == login).Id, "admin");
+            }
+            return RedirectToAction("ListUsers", "Manage");
+        }
+
 
         public ApplicationUserManager UserManager
         {

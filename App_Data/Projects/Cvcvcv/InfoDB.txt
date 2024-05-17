@@ -1,0 +1,2 @@
+25.04.2024 19:55:17: PostgreSQL Логин:Cvcvcv@example.com Пароль:Cvcvcv-1
+25.04.2024 19:55:18: PgAdminSQL Логин:Cvcvcv@example.com Пароль:Cvcvcv-1

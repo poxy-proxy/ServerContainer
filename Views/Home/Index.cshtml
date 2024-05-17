@@ -1,11 +1,17 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model string 
+@{
+    ViewBag.Title = "Главная";
 }
 
 <main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">Главная страница</h1>
-      
-    </section>
+    @*<section class="row" aria-labelledby="aspnetTitle">
+            <h1 id="title">Главная страница</h1>
+
+        </section>*@
+    <p>PostgreSQL <a target="_blank" href="http://172.19.2.63:5432/">http://172.19.2.63:5432/</a></p>
+    <p>pgAdmin <a target="_blank" href="http://172.19.2.63:5050/">http://172.19.2.63:5050/</a></p>
+    <p>MySQL <a target="_blank" href="http://172.19.2.63:2206/">http://172.19.2.63:2206/</a></p>
+    <p>phpMyAdmin <a target="_blank" href="http://172.19.2.63:8080/">http://172.19.2.63:8080/</a></p>
+    <pre>@Model</pre>
 
 </main>

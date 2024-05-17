@@ -1,0 +1,4 @@
+07.05.2024 17:03:44: PostgreSQL Логин:Kiki@example.com Пароль:Kiki-1 База данных: Kikidb
+07.05.2024 17:03:44: PgAdminSQL Логин:Kiki@example.com Пароль:Kiki-1
+07.05.2024 17:03:44: MySQL Логин:Kiki Пароль:Kiki-1 База данных: Kikidb
+07.05.2024 17:03:44: PHPMyAdmin Логин:Kiki Пароль:Kiki-1

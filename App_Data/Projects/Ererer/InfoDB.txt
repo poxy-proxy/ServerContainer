@@ -1,0 +1,4 @@
+26.04.2024 13:57:11: PostgreSQL Логин:Ererer@example.com Пароль:Ererer-1 База данных: Erererdb
+26.04.2024 13:57:11: PgAdminSQL Логин:Ererer@example.com Пароль:Ererer-1
+26.04.2024 13:57:11: MySQL Логин:Ererer@example.com Пароль:Ererer-1 База данных: Erererdb
+26.04.2024 13:57:11: PHPMyAdmin Логин:Ererer@example.com Пароль:Ererer-1
