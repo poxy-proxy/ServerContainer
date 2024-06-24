@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -6,8 +7,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ServerContainer.Models;
 
@@ -16,9 +20,12 @@ namespace ServerContainer.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        String PathServer = @"D:\vs projects\DE\";
+      // String PathServer = @"D:\vs projects\ServerContainer\";
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        TaskCompletionSource<bool> eventHandled = new TaskCompletionSource<bool>();
+        Entities db = new Entities();
         public AccountController()
         {
         }
@@ -35,7 +42,7 @@ namespace ServerContainer.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
+            set 
             { 
                 _signInManager = value; 
             }
@@ -62,6 +69,7 @@ namespace ServerContainer.Controllers
             return View();
         }
 
+      
         //
         // POST: /Account/Login
         [HttpPost]
@@ -80,13 +88,15 @@ namespace ServerContainer.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    string path = @"D:\vs projects\ServerContainer\App_Data\Projects\" + User.Identity.Name + @"\";
+                    string path = PathServer+@"App_Data\Projects\" + User.Identity.Name + @"\";
 
                     DirectoryInfo dirInfo = new DirectoryInfo(path);
                     if (!dirInfo.Exists)
                     {
                         dirInfo.Create();
                     }
+                  
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -159,10 +169,26 @@ namespace ServerContainer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email+"@mail.ru" };
+                var s = "/c docker exec -u root -it postgres-server psql -U postgres -c \"CREATE USER " + user.UserName + "@example.com WITH PASSWORD '" + user.UserName + "'; \"";
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>());
+                    //     HttpContext.GetOwinContext().GetUserManager
+                    // создаем две роли
+                    //var role1 = new IdentityRole { Name = "admin" };
+                    //var role2 = new IdentityRole { Name = "user" };
+
+                    // добавляем роли в бд
+                    //roleManager.Create(role1);
+                    //roleManager.Create(role2);
+                    var u = UserManager.AddToRole(user.Id, "user");
+                    if (model.Email == "admin_ispi")
+                    {
+                        u= UserManager.AddToRole(user.Id, "admin");
+                    }
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // Дополнительные сведения о включении подтверждения учетной записи и сброса пароля см. на странице https://go.microsoft.com/fwlink/?LinkID=320771.
@@ -170,13 +196,97 @@ namespace ServerContainer.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
-                    string path = @"D:\vs projects\ServerContainer\App_Data\Projects\"+user.UserName+@"\";
+                    string path = PathServer+@"App_Data\Projects\" +user.UserName+@"\";
                   
                     DirectoryInfo dirInfo = new DirectoryInfo(path);
                     if (!dirInfo.Exists)
                     {
                         dirInfo.Create();
                     }
+
+                    path = PathServer + @"App_Data\DBInfo\" + user.UserName + @"\";
+
+                     dirInfo = new DirectoryInfo(path);
+                    if (!dirInfo.Exists)
+                    {
+                        dirInfo.Create();
+                    }
+                    //     var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>());
+                    ////     HttpContext.GetOwinContext().GetUserManager
+                    //     // создаем две роли
+                    //     var role1 = new IdentityRole { Name = "admin" };
+                    //     var role2 = new IdentityRole { Name = "user" };
+
+                    //     // добавляем роли в бд
+                    //     roleManager.Create(role1);
+                    //     roleManager.Create(role2);
+
+                    //     // создаем пользователей
+                    //     //var admin = new ApplicationUser { Email = "admin@mail.ru", UserName = "admin" };
+                    //    // string password = "Ispi_2024";
+
+                    //         // добавляем для пользователя роль
+                    //         UserManager.AddToRole(user.Id, role1.Name);
+                    //         UserManager.AddToRole(user.Id, role2.Name);
+
+                    // UserManager.AddToRole(user.Id, r.);
+
+                    // Создаем массив процессов
+                    Process[] processes = new Process[9];
+                    
+                    for(int i = 0; i < processes.Length; i++)
+                    {
+                        processes[i] = new Process();
+                        processes[i].StartInfo.FileName = @"C:\Windows\System32\cmd.exe";
+                        processes[i].StartInfo.WorkingDirectory = PathServer + @"App_Data\Projects\" + User.Identity.Name;
+                        processes[i].StartInfo.FileName = "cmd.exe";
+                        processes[i].EnableRaisingEvents = true;
+                        int processIndex = i;
+                        processes[i].Exited += (sender, e) => ProcessExited(sender, e, processes, processIndex+1);
+                    }
+
+                    processes[0].StartInfo.Arguments =  "/c docker exec -u root -it postgres-server psql -U postgres -c \"CREATE USER \\\"" + user.UserName + "@example.com\\\" WITH PASSWORD '" + model.Password + "';\"";
+
+                    processes[1].StartInfo.Arguments = "/c docker exec -u root -it pgadmin-server /bin/sh -c \" /venv/bin/python /pgadmin4/setup.py add-user \\\"" + user.UserName + "@example.com\\\" " + model.Password + "\"";
+
+                    processes[2].StartInfo.Arguments = "/c docker exec -u root -it postgres-server psql -U postgres -c \"CREATE DATABASE \\\"" + user.UserName + "db\\\" WITH OWNER \\\"" + user.UserName + "@example.com\\\";\"";
+
+                    processes[3].StartInfo.Arguments = "/c docker exec -u root -it postgres-server psql -U postgres -c \"REVOKE ALL ON DATABASE \\\"" + user.UserName + "db\\\" FROM PUBLIC;\"";
+
+                    processes[4].StartInfo.Arguments = "/c docker exec -u root -it postgres-server psql -U postgres -c \"GRANT CONNECT, TEMPORARY ON DATABASE \\\"" + user.UserName + "db\\\" TO \\\"" + user.UserName + "@example.com\\\";\"";
+
+                    processes[5].StartInfo.Arguments = "/c docker exec -it mysql-server mysql -u root -pHello_227 -e \"CREATE DATABASE "+user.UserName+"db; \"";
+
+                    processes[6].StartInfo.Arguments = "/c docker exec -it mysql-server mysql -u root -pHello_227 -e \"CREATE USER '" + user.UserName + "' IDENTIFIED BY '" + model.Password + "'; \"";
+
+                    processes[7].StartInfo.Arguments = "/c docker exec -it mysql-server mysql -u root -pHello_227 -e \"GRANT ALL PRIVILEGES ON " + user.UserName + "db.* TO '" + user.UserName + "'; \"";
+
+                    processes[8].StartInfo.Arguments = "/c docker exec -it mysql-server mysql -u root -pHello_227 -e \"FLUSH PRIVILEGES; \"";
+                    var ss = "docker exec -u root -it postgres-server psql -U postgres -c \"CREATE DATABASE ddd" + user.UserName + "db WITH OWNER \\\"" + user.UserName + "@example.com\\\";\"";
+                    //for (int i = 0; i < processes.Length; i++)
+                    //{
+                    //    processes[i].Start();
+                    //}
+                     processes[0].Start();
+                    //processes[2].Start();
+                    //processes[3].Start();
+
+                    foreach(var process in processes)
+                    {
+                        process.WaitForExit();
+                    }
+                    string pathInfoDB = PathServer + @"App_Data\DBInfo\" + user.UserName + @"\InfoDB.txt";
+                    WriteMessage(user.UserName.ToLower() + "db",pathInfoDB);
+                    WriteMessage(user.UserName + "@example.com", pathInfoDB);
+                    WriteMessage(model.Password, pathInfoDB);
+                    WriteMessage(user.UserName + "@example.com", pathInfoDB);
+                    WriteMessage(model.Password, pathInfoDB);
+                    WriteMessage(user.UserName + "db", pathInfoDB);
+                    WriteMessage(user.UserName , pathInfoDB);
+                    WriteMessage(model.Password, pathInfoDB);
+                    WriteMessage(user.UserName, pathInfoDB);
+                    WriteMessage(model.Password, pathInfoDB);
+             
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -184,6 +294,41 @@ namespace ServerContainer.Controllers
 
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
+        }
+
+
+        // Метод, который будет вызываться при завершении процесса
+        static async void ProcessExited(object sender, EventArgs e, Process[] processes, int nextProcessIndex)
+        {
+            if (nextProcessIndex < processes.Length)
+            {
+                // Если есть следующий процесс в массиве, запускаем его
+                processes[nextProcessIndex].Start();
+            }
+            else
+            {
+                // Все процессы завершены
+              //  await WriteLogAsync("All processes have finished.",  @"D:\vs projects\ServerContainer\App_Data\Errors.txt");
+                //Console.WriteLine("All processes have finished.");
+            }
+        }
+
+        public static async Task WriteLogAsync(string message, string path)
+        {
+            using (FileStream fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+            using (StreamWriter writer = new StreamWriter(fileStream))
+            {
+                await writer.WriteLineAsync($"{DateTime.Now}: {message}");
+            }
+        }
+
+        public static void WriteMessage(string message, string path)
+        {
+            using (FileStream fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+            using (StreamWriter writer = new StreamWriter(fileStream))
+            {
+                writer.WriteLine($"{message}");
+            }
         }
 
         //

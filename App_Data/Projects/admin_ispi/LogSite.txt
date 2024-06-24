@@ -1,0 +1,5 @@
+
+> testproj@1.0.0 start /app
+> node test.js
+
+Server is running on port 3000

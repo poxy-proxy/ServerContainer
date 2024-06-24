@@ -1,11 +1,35 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model string[] 
+@{
+    ViewBag.Title = "Главная";
 }
 
 <main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">Главная страница</h1>
-      
-    </section>
-
+    <h3>Параметры подключения к БД</h3>
+    <br />
+    @*<p>PostgreSQL <a target="_blank" href="http://172.19.2.63:5432/">http://172.19.2.63:5432/</a></p>
+        <p>pgAdmin <a target="_blank" href="http://172.19.2.63:5050/">http://172.19.2.63:5050/</a></p>
+        <p>MySQL <a target="_blank" href="http://172.19.2.63:2206/">http://172.19.2.63:2206/</a></p>
+        <p>phpMyAdmin <a target="_blank" href="http://172.19.2.63:8080/">http://172.19.2.63:8080/</a></p>*@
+    <h4>PostgreSQL</h4>
+    <p><b>Внешний host(при запросах со своего компьютера): </b>172.19.2.63 </p>
+    <p><b>Внутренний host(при публикации): </b>172.18.0.2 </p>
+    <p><b>port: </b>5432</p>
+    <p><b>database: </b>@Model[0]</p>
+    <p><b>user: </b>@Model[1]</p>
+    <p><b>password: </b>@Model[2]</p>
+    <p><b>pgAdmin: </b><a target="_blank" href="http://172.19.2.63:5050/">http://172.19.2.63:5050/</a></p>
+    <p><b>pgAdminLogin: </b>@Model[3]</p>
+    <p><b>pgAdminPassword: </b>@Model[4]</p>
+    @*<pre>@Model</pre>*@
+    <br />
+    <h4>mySQL</h4>
+    <p><b>Внешний host(при запросах со своего компьютера): </b>172.19.2.63</p>
+    <p><b>Внутренний host(при публикации): </b>172.18.0.4 </p>
+    <p><b>port: </b>2206</p>
+    <p><b>database: </b>@Model[5]</p>
+    <p><b>user: </b>@Model[6]</p>
+    <p><b>password: </b>@Model[7]</p>
+    <p><b>phpMyAdmin: </b><a target="_blank" href="http://172.19.2.63:8080/">http://172.19.2.63:8080/</a></p>
+    <p><b>phpMyAdminLogin: </b>@Model[8]</p>
+    <p><b>phpMyAdminPassword: </b>@Model[9]</p>
 </main>

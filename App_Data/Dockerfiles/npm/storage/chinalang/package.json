@@ -1,0 +1,87 @@
+{
+	"name": "chinalang",
+	"versions": {
+		"0.1.0": {
+			"name": "chinalang",
+			"version": "0.1.0",
+			"private": false,
+			"dependencies": {
+				"@testing-library/jest-dom": "^5.17.0",
+				"@testing-library/react": "^13.4.0",
+				"@testing-library/user-event": "^13.5.0",
+				"bcrypt": "^5.1.1",
+				"cookie-parser": "^1.4.6",
+				"cors": "^2.8.5",
+				"express": "^4.19.2",
+				"express-validator": "^7.0.1",
+				"formik": "^2.4.5",
+				"jsonwebtoken": "^9.0.2",
+				"jwt-decode": "^4.0.0",
+				"knex": "^3.1.0",
+				"pg": "^8.11.3",
+				"react": "^18.2.0",
+				"react-dom": "^18.2.0",
+				"react-router-dom": "^6.22.3",
+				"react-scripts": "5.0.1",
+				"styled-components": "^6.1.8",
+				"web-vitals": "^2.1.4",
+				"yup": "^1.4.0"
+			},
+			"scripts": {
+				"start": "react-scripts start",
+				"build": "react-scripts build",
+				"test": "react-scripts test",
+				"eject": "react-scripts eject"
+			},
+			"eslintConfig": {
+				"extends": [
+					"react-app",
+					"react-app/jest"
+				]
+			},
+			"browserslist": {
+				"production": [
+					">0.2%",
+					"not dead",
+					"not op_mini all"
+				],
+				"development": [
+					"last 1 chrome version",
+					"last 1 firefox version",
+					"last 1 safari version"
+				]
+			},
+			"readmeFilename": "README.md",
+			"description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+			"_id": "chinalang@0.1.0",
+			"_nodeVersion": "16.16.0",
+			"_npmVersion": "8.11.0",
+			"dist": {
+				"integrity": "sha512-KtSVhJj0+zddmcl8NwbJEr5PDU1ufdD81Q4rlhDxHOmXBLT3w4lobS2TqiQ2+SOGxCm2Ul9exgyzKEdHKhYKqw==",
+				"shasum": "dc39c7848868adc96f0430128f0799e2d7202fb5",
+				"tarball": "http://localhost:4873/chinalang/-/chinalang-0.1.0.tgz"
+			},
+			"contributors": []
+		}
+	},
+	"time": {
+		"modified": "2024-05-22T14:11:52.102Z",
+		"created": "2024-05-22T14:11:52.102Z",
+		"0.1.0": "2024-05-22T14:11:52.102Z"
+	},
+	"users": {},
+	"dist-tags": {
+		"latest": "0.1.0"
+	},
+	"_uplinks": {},
+	"_distfiles": {},
+	"_attachments": {
+		"chinalang-0.1.0.tgz": {
+			"shasum": "dc39c7848868adc96f0430128f0799e2d7202fb5",
+			"version": "0.1.0"
+		}
+	},
+	"_rev": "4-cfd0d884282f6ca7",
+	"_id": "chinalang",
+	"readme": "# Getting Started with Create React App\n\nThis project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).\n\n## Available Scripts\n\nIn the project directory, you can run:\n\n### `npm start`\n\nRuns the app in the development mode.\\\nOpen [http://localhost:3000](http://localhost:3000) to view it in your browser.\n\nThe page will reload when you make changes.\\\nYou may also see any lint errors in the console.\n\n### `npm test`\n\nLaunches the test runner in the interactive watch mode.\\\nSee the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.\n\n### `npm run build`\n\nBuilds the app for production to the `build` folder.\\\nIt correctly bundles React in production mode and optimizes the build for the best performance.\n\nThe build is minified and the filenames include the hashes.\\\nYour app is ready to be deployed!\n\nSee the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.\n\n### `npm run eject`\n\n**Note: this is a one-way operation. Once you `eject`, you can't go back!**\n\nIf you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.\n\nInstead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.\n\nYou don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.\n\n## Learn More\n\nYou can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).\n\nTo learn React, check out the [React documentation](https://reactjs.org/).\n\n### Code Splitting\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)\n\n### Analyzing the Bundle Size\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)\n\n### Making a Progressive Web App\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)\n\n### Advanced Configuration\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)\n\n### Deployment\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)\n\n### `npm run build` fails to minify\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)"
+}

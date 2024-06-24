@@ -19,48 +19,63 @@
         <th>
             @Html.DisplayNameFor(model => model.CreatedOn)
         </th>
-        <th></th>
+        <th>Скачать решение</th>
+        <th>Скачать дамп PostgreSQL</th>
+        <th>Скачать дамп MySQL</th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Reference)
-        </td>
+    <td>
+        <a target="_blank" href="@Html.DisplayFor(modelItem => item.Reference)">@Html.DisplayFor(modelItem => item.Reference)</a>
+    </td>
 
 
+    <td>
+        @Html.DisplayFor(modelItem => item.CreatedOn)
+    </td>
+
+    @if (item.Status == "Запущено")
+    {
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedOn)
+            @Html.ActionLink("Скачать", "DownloadSolution", new { name = item.Name })
         </td>
         <td>
-            @*@if (item.Status != "Запущено")
+            @Html.ActionLink("Скачать дамп PostgreSQL", "DownloadDumpPostgreSQL", new { name = item.Name })
+        </td>
+        <td>
+            @Html.ActionLink("Скачать дамп MySQL", "DownloadDumpMySQL", new { name = item.Name })
+        </td>
+    }
+    <!--<td>-->
+    @*@if (item.Status != "Запущено")
+        {
+            if (item.Status != "Собрано")
             {
-                if (item.Status != "Собрано")
-                {
 
-                @Html.ActionLink("Собрать", "Build", new { name = item.Name })
+            @Html.ActionLink("Собрать", "Build", new { name = item.Name })
+            }
+            else
+            {
+
+        @Html.ActionLink("Запустить", "Run", new { name = item.Name })
                 }
-                else
-                {
+            }
+            else
+            {
+                @Html.ActionLink("Остановить", "Stop", new { Name = item.Name })
+            }*@
 
-            @Html.ActionLink("Запустить", "Run", new { name = item.Name })
-                    }
-                }
-                else
-                {
-                    @Html.ActionLink("Остановить", "Stop", new { Name = item.Name })
-                }*@
-
-        </td>
-    </tr>
+    <!--</td>-->
+</tr>
 }
 
 </table>

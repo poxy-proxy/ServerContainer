@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ServerContainer.Models.FileModel>
+
+@if (User.IsInRole("admin"))
+{
+<h3>Загрузите файлы заданий</h3>
+using (Html.BeginForm("UploadTask", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="upload" />
+    <br>
+    <input type="submit" value="Загрузить" />
+}
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Скачать", "DownloadTask", new { name = item.Name })
+
+            </td>
+            @if (User.IsInRole("admin"))
+            {
+                <td>
+
+                    @Html.ActionLink("Удалить", "DeleteTask", new { name = item.Name })
+
+                </td>
+            }
+            </tr>
+    }
+
+</table>
+
+

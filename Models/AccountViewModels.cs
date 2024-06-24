@@ -6,7 +6,7 @@ namespace ServerContainer.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Адрес электронной почты")]
+        [Display(Name = "Имя пользователя")]
         public string Email { get; set; }
     }
 
@@ -42,15 +42,15 @@ namespace ServerContainer.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Адрес электронной почты")]
+        [Display(Name = "Имя пользователя")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Адрес электронной почты")]
-        [EmailAddress]
+        [Display(Name = "Имя пользователя")]
+       // [EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -65,8 +65,8 @@ namespace ServerContainer.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Адрес электронной почты")]
+     //   [EmailAddress]
+        [Display(Name = "Имя пользователя")]
         public string Email { get; set; }
 
         [Required]
@@ -84,8 +84,8 @@ namespace ServerContainer.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Адрес электронной почты")]
+       // [EmailAddress]
+        [Display(Name = "Имя пользователя")]
         public string Email { get; set; }
 
         [Required]
@@ -105,8 +105,8 @@ namespace ServerContainer.Models
     public class ForgotPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Почта")]
+      //  [EmailAddress]
+        [Display(Name = "Имя пользователя")]
         public string Email { get; set; }
     }
 }
