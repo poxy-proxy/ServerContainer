@@ -20,8 +20,7 @@
             @Html.DisplayNameFor(model => model.CreatedOn)
         </th>
         <th>Скачать решение</th>
-        <th>Скачать дамп PostgreSQL</th>
-        <th>Скачать дамп MySQL</th>
+        <th>Скачать дампы БД</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -49,11 +48,9 @@
             @Html.ActionLink("Скачать", "DownloadSolution", new { name = item.Name })
         </td>
         <td>
-            @Html.ActionLink("Скачать дамп PostgreSQL", "DownloadDumpPostgreSQL", new { name = item.Name })
+            @Html.ActionLink("Скачать", "DownloadDump", new { name = item.Name })
         </td>
-        <td>
-            @Html.ActionLink("Скачать дамп MySQL", "DownloadDumpMySQL", new { name = item.Name })
-        </td>
+
     }
     <!--<td>-->
     @*@if (item.Status != "Запущено")

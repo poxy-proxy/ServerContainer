@@ -1,0 +1,4 @@
+07.05.2024 17:11:39: PostgreSQL Логин:Koko@example.com Пароль:Koko-1 База данных: Kokodb
+07.05.2024 17:11:39: PgAdminSQL Логин:Koko@example.com Пароль:Koko-1
+07.05.2024 17:11:39: MySQL Логин:Koko Пароль:Koko-1 База данных: Kokodb
+07.05.2024 17:11:39: PHPMyAdmin Логин:Koko Пароль:Koko-1
